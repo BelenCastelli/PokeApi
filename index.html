@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="img/favicon.png" type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/45ed505f6a.js" crossorigin="anonymous"></script>
+
+    <title>PokeApi</title>
+</head>
+<body onload="pokemons()">
+
+    <header>
+        <nav>
+            <img src="img/logo.png" alt="Logo Pokemon" width="350">
+            
+            <div id="sections">
+                <li id="list">
+                    <ul>Pokemons</ul>
+                    <ul>Berries</ul>
+                    <ul>My favorites</ul>
+                </li>
+            </div>
+    
+        </nav>
+    </header>
+
+
+    <main>
+        <div id="container">
+            <form>
+                <label for="name">Name or Id</label>
+                <input type="text" name="name" id="input">
+                <select name="select" id="typeSearch">
+                    <option value="name">Name</option>
+                    <option value="id" selected>Id</option>
+                    <option value="type">Type</option>
+                  </select>
+
+                <button type="button" onclick="buscar()">Search</button>
+            </form>
+
+            <div id="search">
+
+            </div>
+        </div>
+
+
+
+    </main>
+
+    <footer>
+        <section id="copy">
+            <p>&copy; PokeApi of Belen Castelli</p>
+        </section>
+        <aside id="redes">
+            <ul id="redes-lista">
+                <a href="https://www.facebook.com/" target="_blank" class="link"><li><i class="fa-brands fa-facebook"></i>&nbsp;Facebook</li></a>
+                <a href="https://twitter.com/" target="_blank" class="link"><li><i class="fa-brands fa-twitter"></i>&nbsp;Twitter</li></a>
+                <a href="https://es.linkedin.com/" target="_blank" class="link"><li><i class="fa-brands fa-linkedin"></i>&nbsp;Linkedin</li></a>
+            </ul>
+        </aside>
+    </footer>
+
+
+    <script src="script.js"></script>
+</body>
+</html>
