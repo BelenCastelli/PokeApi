@@ -13,7 +13,7 @@
 
     <title>PokeApi</title>
 </head>
-<body onload="pokemons()">
+<body onload="pokemonsOnload()">
 
     <header>
         <nav>
@@ -34,24 +34,32 @@
     <main>
         <div id="container">
             <form>
-                <label for="name">Name or Id</label>
-                <input type="text" name="name" id="input">
-                <select name="select" id="typeSearch">
+        
+                <input type="text" name="name" id="input" placeholder="Name or Id">
+                <!-- <select name="select" id="typeSearch">
                     <option value="name">Name</option>
                     <option value="id" selected>Id</option>
                     <option value="type">Type</option>
-                  </select>
+                  </select> -->
 
-                <button type="button" onclick="buscar()">Search</button>
+                <button type="button" onclick="buscar()">
+                    <i class="fa-solid fa-magnifying-glass fa-bounce fa-xl" style="color: #ffffff;"></i>
+                </button>
+
+                <button type="button" onclick="deleteSearch()"> 
+                    <i class="fa-solid fa-circle-xmark" style="color: #ffffff;"></i>
+                </button>
             </form>
-
-            <div id="search">
-
+            <div id="searchContainer">
+                <div id="search"></div>
+    
+                <div id="stats"></div>
             </div>
         </div>
 
-
-
+        <div id="morePokemons">
+            <button id="buttonPokemon" onclick="morePokemons()">Load more Pokemons</button>
+        </div>
     </main>
 
     <footer>

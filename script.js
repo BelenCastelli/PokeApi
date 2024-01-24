@@ -1,9 +1,23 @@
+let countLimit = 10
+let countOffset = 0
 
-let hidden = false
+let search = document.getElementById('search')
+let stats = document.getElementById('stats')
 
-function pokemons(){
+let url = `https://pokeapi.co/api/v2/pokemon/?offset=${countOffset}&limit=${countLimit}`;
 
-    let url = `https://pokeapi.co/api/v2/pokemon?limit=151`;
+function pokemonsOnload(){
+    pokemons(url)
+}
+
+function morePokemons(){
+    countOffset += 10
+    url = `https://pokeapi.co/api/v2/pokemon/?offset=${countOffset}&limit=${countLimit}`;
+    pokemons(url)
+}
+
+
+function pokemons(url){
     let param = {
         headers: {
             'Content-Type': 'application/json; charset=UTF-8'
@@ -22,10 +36,11 @@ function pokemons(){
     })
 }
 
+
 function buscar() {
 
     let imput = document.getElementById('input').value;
-    let typeSearch = document.getElementById('typeSearch').value
+    // let typeSearch = document.getElementById('typeSearch').value
     let url = `https://pokeapi.co/api/v2/pokemon/${imput}`;
     let param = {
         headers: {
@@ -37,107 +52,31 @@ function buscar() {
     fetch(url,param)
     .then(data => data.json())
     .then(datosPokemon => {
-        console.log(datosPokemon);
+        search = document.getElementById('search')
+        stats = document.getElementById('stats')
         let pokemonSearch = document.createElement("div");
-        pokemonSearch.classList.add('pokemonContainer')
-        let card = document.createElement("div")
-        card.classList.add("card")
+        pokemonSearch.classList.add('pokemonContainer');
 
-        // Foto pokemon
-        let img = document.createElement("img");
-        img.src = datosPokemon.sprites.front_default
-        img.width = 150;
-        let imgContent = document.createTextNode(`${datosPokemon.sprites.back_default}`);
-        img.appendChild(imgContent);
-        img.classList.add("img")
-
-        // Nombre Pokemon
-        let name = document.createElement("h3");
-        let nameContent = document.createTextNode(`${datosPokemon.name}`);
-        name.appendChild(nameContent);
-        name.classList.add("title")
-
-        //id Pokemon
-        let id = document.createElement("p");
-        let idContent = document.createTextNode(`Nº${datosPokemon.id}`);
-        id.appendChild(idContent);
-        id.classList.add("id")
-
-        // Tipo Pokemon
-        let type = document.createElement("p");
-        let types =[]
-            for (let z = 0; z < datosPokemon.types.length; z++){
-                types.push(datosPokemon.types[z].type.name)
-            }
-
-        let boldType = document.createElement('b');
-        let typeText = document.createTextNode('Type: ');
-        boldType.appendChild(typeText);
-
-        let typeContent = document.createTextNode(`${types.join(', ')}`);
-
-        type.appendChild(boldType)
-        type.appendChild(typeContent);
-        type.classList.add("content")
-
-        // Habilidades
-        let ability = document.createElement("p");
-        let abilities =[]
-            for (let z = 0; z < datosPokemon.abilities.length; z++){
-                abilities.push(datosPokemon.abilities[z].ability.name)
-            }
-        let boldAbility = document.createElement('b');
-        let abilityText = document.createTextNode('Ability: ');
-        boldAbility.appendChild(abilityText);
-
-        let abilityContent = document.createTextNode(`${abilities.join(', ')}`);
-        ability.appendChild(boldAbility);
-        ability.appendChild(abilityContent);
-        ability.classList.add("content")
-
-        // Experiencia Base
-        let boldExperience = document.createElement('b');
-        let experienceText = document.createTextNode('Base Experience: ');
-        boldExperience.appendChild(experienceText);
-
-
-        let experience = document.createElement("p");
-        let experienceContent = document.createTextNode(`${datosPokemon.base_experience}`);
-        experience.appendChild(boldExperience);
-        experience.appendChild(experienceContent);
-        experience.classList.add("content")
-
-        let stats = document.createElement('div');
-        let stat =[]
-        for (let z = 0; z < datosPokemon.stats.length; z++){
-            stat.push(
-               
-           datosPokemon.stats[z].base_stat
-            );
-            
-            console.log(stat);
-        }
-        let statsContent = document.createTextNode(`Stats: ${stat}`);
-        stats.appendChild(statsContent);
-        stats.classList.add("id")
-
-        // añadir cada elemento a card
-        card.appendChild(name)
-        card.appendChild(img)
-        card.appendChild(id)
-        card.appendChild(type)
-        card.appendChild(ability)
-        card.appendChild(experience)
-        card.appendChild(stats)
-        // añdir las card al div
-        pokemonSearch.appendChild(card)
-        // añdir al div a main con id=container
+        let card = cardSearch(datosPokemon);
+        pokemonSearch.appendChild(card);
         search.appendChild(pokemonSearch);
 
-        // Limpiar para nueva busqueda
-        let searchContainer = document.getElementById('search');
-        searchContainer.innerHTML = '';
-        searchContainer.appendChild(pokemonSearch);
+        // Crear contenedor para estadísticas
+        let statsDiv = document.createElement('div');
+        statsDiv.classList.add('pokemonContainer')
+        let statsTable = document.createElement('table');
+        statsTable.classList.add('pokemontable')
+        table(statsTable, datosPokemon);
+        statsDiv.appendChild(statsTable);
+    
+        stats.appendChild(statsDiv);
+
+        // reemplaza el contenido con la nueva busqueda
+        search.innerHTML = '';
+        search.appendChild(pokemonSearch);
+
+        stats.innerHTML ='';
+        stats.appendChild(statsDiv)
 
     })
     .catch(error =>{
@@ -145,7 +84,11 @@ function buscar() {
     })
 }
 
-
+function deleteSearch() {
+    search.innerHTML = '';
+    stats.innerHTML ='';
+ 
+}
 function card(data){
     let pokemonContainer = document.createElement("div");
     pokemonContainer.classList.add('pokemonContainer')
@@ -162,20 +105,17 @@ function card(data){
                 let img = document.createElement("img");
                 img.src = datosPokemon.sprites.front_default
                 img.width = 150;
-                let imgContent = document.createTextNode(`${datosPokemon.sprites.back_default}`);
-                img.appendChild(imgContent);
+                img.textContent = datosPokemon.sprites.back_default;
                 img.classList.add("img")
 
                 // Nombre Pokemon
                 let name = document.createElement("h3");
-                let nameContent = document.createTextNode(`${datosPokemon.name}`);
-                name.appendChild(nameContent);
+                name.textContent = datosPokemon.name;
                 name.classList.add("title")
 
                 //id Pokemon
                 let id = document.createElement("p");
-                let idContent = document.createTextNode(`Nº${datosPokemon.id}`);
-                id.appendChild(idContent);
+                id.textContent = `Nº${datosPokemon.id}`;
                 id.classList.add("id")
 
                 // Tipo Pokemon
@@ -186,11 +126,8 @@ function card(data){
                     }
 
                 let boldType = document.createElement('b');
-                let typeText = document.createTextNode('Type: ');
-                boldType.appendChild(typeText);
-
+                boldType.textContent = 'Type: '
                 let typeContent = document.createTextNode(`${types.join(', ')}`);
-
                 type.appendChild(boldType)
                 type.appendChild(typeContent);
                 type.classList.add("content")
@@ -201,10 +138,9 @@ function card(data){
                     for (let z = 0; z < datosPokemon.abilities.length; z++){
                         abilities.push(datosPokemon.abilities[z].ability.name)
                     }
-                let boldAbility = document.createElement('b');
-                let abilityText = document.createTextNode('Ability: ');
-                boldAbility.appendChild(abilityText);
 
+                let boldAbility = document.createElement('b');
+                boldAbility.textContent = 'Ability: '
                 let abilityContent = document.createTextNode(`${abilities.join(', ')}`);
                 ability.appendChild(boldAbility);
                 ability.appendChild(abilityContent);
@@ -212,9 +148,7 @@ function card(data){
 
                 // Experiencia Base
                 let boldExperience = document.createElement('b');
-                let experienceText = document.createTextNode('Base Experience: ');
-                boldExperience.appendChild(experienceText);
-
+                boldExperience.textContent ='Base Experience: '
 
                 let experience = document.createElement("p");
                 let experienceContent = document.createTextNode(`${datosPokemon.base_experience}`);
@@ -238,4 +172,111 @@ function card(data){
         }     
 }
 
+
+
+function cardSearch(datosPokemon){
+
+
+            let card = document.createElement("div")
+            card.classList.add("pokemonSearch")
+
+            // Foto pokemon
+            let img = document.createElement("img");
+            img.src = datosPokemon.sprites.front_default
+            img.width = 185;
+            let imgContent = document.createTextNode(`${datosPokemon.sprites.back_default}`);
+            img.appendChild(imgContent);
+            img.classList.add("imgSearch")
+
+            // Nombre Pokemon
+            let name = document.createElement("h3");
+            let nameContent = document.createTextNode(`${datosPokemon.name}`);
+            name.appendChild(nameContent);
+            name.classList.add("titleSearch")
+
+            //id Pokemon
+            let id = document.createElement("p");
+            let idContent = document.createTextNode(`Nº${datosPokemon.id}`);
+            id.appendChild(idContent);
+            id.classList.add("idSearch")
+
+            // Tipo Pokemon
+            let type = document.createElement("p");
+            let types =[]
+                for (let z = 0; z < datosPokemon.types.length; z++){
+                    types.push(datosPokemon.types[z].type.name)
+                }
+
+            let boldType = document.createElement('b');
+            let typeText = document.createTextNode('Type: ');
+            boldType.appendChild(typeText);
+
+            let typeContent = document.createTextNode(`${types.join(', ')}`);
+
+            type.appendChild(boldType)
+            type.appendChild(typeContent);
+            type.classList.add("contentSearch")
+
+            // Habilidades
+            let ability = document.createElement("p");
+            let abilities =[]
+                for (let z = 0; z < datosPokemon.abilities.length; z++){
+                    abilities.push(datosPokemon.abilities[z].ability.name)
+                }
+            let boldAbility = document.createElement('b');
+            let abilityText = document.createTextNode('Ability: ');
+            boldAbility.appendChild(abilityText);
+
+            let abilityContent = document.createTextNode(`${abilities.join(', ')}`);
+            ability.appendChild(boldAbility);
+            ability.appendChild(abilityContent);
+            ability.classList.add("contentSearch")
+
+            // Experiencia Base
+            let boldExperience = document.createElement('b');
+            let experienceText = document.createTextNode('Base Experience: ');
+            boldExperience.appendChild(experienceText);
+
+
+            let experience = document.createElement("p");
+            let experienceContent = document.createTextNode(`${datosPokemon.base_experience}`);
+            experience.appendChild(boldExperience);
+            experience.appendChild(experienceContent);
+            experience.classList.add("contentSearch")
+
+            // añadir cada elemento a card
+            card.appendChild(name)
+            card.appendChild(img)
+            card.appendChild(id)
+            card.appendChild(type)
+            card.appendChild(ability)
+            card.appendChild(experience)
+    return card
+}
+
+function table(tableID, datosPokemon){
+    // Encabezado
+    let titleTable = document.createElement('thead')
+    titleTable.textContent = 'Stats'
+    titleTable.classList.add('titleTable')
+    tableID.appendChild(titleTable)
+
+    let headerRow = tableID.insertRow(0)
+    
+    let name = document.createElement('th')
+    name.textContent = 'Stat Name'
+    headerRow.appendChild(name)
+
+    let baseStat = document.createElement('th')
+    baseStat.textContent = 'Base Stat'
+    headerRow.appendChild(baseStat)
+
+    for(let i = 0; i < datosPokemon.stats.length; i++){
+        let row = tableID.insertRow(i + 1)
+        let nameCell = row.insertCell(0)
+        nameCell.textContent = datosPokemon.stats[i].stat.name
+        let baseStatCell = row.insertCell(1)
+        baseStatCell.textContent = datosPokemon.stats[i].base_stat
+    }
+}
 
