@@ -19,13 +19,13 @@
         <nav>
             <img src="img/logo.png" alt="Logo Pokemon" width="350">
             
-            <div id="sections">
+            <!-- <div id="sections">
                 <li id="list">
                     <ul>Pokemons</ul>
                     <ul>Berries</ul>
                     <ul>My favorites</ul>
                 </li>
-            </div>
+            </div> -->
     
         </nav>
     </header>
@@ -47,10 +47,14 @@
                 </button>
 
                 <button type="button" onclick="deleteSearch()"> 
-                    <i class="fa-solid fa-circle-xmark" style="color: #ffffff;"></i>
+                    <i id="deleteSearch" class="fa-solid fa-circle-xmark fa-xl" style="color: #ffffff;"></i>
                 </button>
             </form>
             <div id="searchContainer">
+                <div id="description">
+                    <div id="locationArea"></div>
+                </div>
+                
                 <div id="search"></div>
     
                 <div id="stats"></div>

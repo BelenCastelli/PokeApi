@@ -1,8 +1,10 @@
 let countLimit = 10
 let countOffset = 0
 
+let searchContainer = document.getElementById('searchContainer')
 let search = document.getElementById('search')
 let stats = document.getElementById('stats')
+let description = document.getElementById('description')
 
 let url = `https://pokeapi.co/api/v2/pokemon/?offset=${countOffset}&limit=${countLimit}`;
 
@@ -52,8 +54,6 @@ function buscar() {
     fetch(url,param)
     .then(data => data.json())
     .then(datosPokemon => {
-        search = document.getElementById('search')
-        stats = document.getElementById('stats')
         let pokemonSearch = document.createElement("div");
         pokemonSearch.classList.add('pokemonContainer');
 
@@ -63,13 +63,18 @@ function buscar() {
 
         // Crear contenedor para estadísticas
         let statsDiv = document.createElement('div');
-        statsDiv.classList.add('pokemonContainer')
+        statsDiv.classList.add('location')
         let statsTable = document.createElement('table');
         statsTable.classList.add('pokemontable')
         table(statsTable, datosPokemon);
         statsDiv.appendChild(statsTable);
-    
         stats.appendChild(statsDiv);
+    
+        // description and enviroment
+    let urlLocation = `https://pokeapi.co/api/v2/pokemon/${imput}/encounters`
+    fetch(urlLocation, param)
+    .then(data => data.json())
+    .then(data => {enviroment(data)})
 
         // reemplaza el contenido con la nueva busqueda
         search.innerHTML = '';
@@ -85,10 +90,13 @@ function buscar() {
 }
 
 function deleteSearch() {
-    search.innerHTML = '';
-    stats.innerHTML ='';
+search.innerHTML = '';
+locationArea.innerHTML = '';
+stats.innerHTML = '';
  
 }
+
+
 function card(data){
     let pokemonContainer = document.createElement("div");
     pokemonContainer.classList.add('pokemonContainer')
@@ -255,11 +263,6 @@ function cardSearch(datosPokemon){
 }
 
 function table(tableID, datosPokemon){
-    // Encabezado
-    let titleTable = document.createElement('thead')
-    titleTable.textContent = 'Stats'
-    titleTable.classList.add('titleTable')
-    tableID.appendChild(titleTable)
 
     let headerRow = tableID.insertRow(0)
     
@@ -280,3 +283,34 @@ function table(tableID, datosPokemon){
     }
 }
 
+function enviroment(data){
+    let locationArea = document.getElementById('locationArea')
+    let dataFilter = data.map((data, index) => index+1 + ': ' + data.location_area.name)
+    dataFilter = dataFilter.map(element => element.replace(/-/g, ' '));
+    console.log(dataFilter);
+
+    let enviroment = document.createElement('div')
+    enviroment.classList.add('location')
+
+    let bold = document.createElement('b');
+    bold.textContent = 'Location Area: ';
+    enviroment.appendChild(bold);
+
+    if(dataFilter.length > 0 && dataFilter.length < 10){
+
+        enviroment.innerHTML += `${dataFilter.join(', ')}<br>`;
+    } else if (dataFilter.length > 10){
+        dataFilter = dataFilter.filter((data, index) => index < 10)
+        enviroment.innerHTML += `${dataFilter.join(', ')}, etc..<br>`;
+
+    } else {
+        enviroment.innerHTML += 'There are no location areas'
+    }
+
+    locationArea.appendChild(enviroment)
+  
+
+    locationArea.innerHTML = ''
+   locationArea.appendChild(enviroment);
+
+}
