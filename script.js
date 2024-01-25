@@ -87,13 +87,15 @@ function buscar() {
     .catch(error =>{
         console.log(error);
     })
+
+    toastr.success('Have fun storming the castle!', 'Miracle Max Says')
 }
 
 function deleteSearch() {
 search.innerHTML = '';
 locationArea.innerHTML = '';
 stats.innerHTML = '';
- 
+
 }
 
 
