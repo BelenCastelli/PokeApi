@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="styleItem.css">
     <link rel="shortcut icon" href="img/favicon.png" type="image/png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,41 +15,29 @@
     <script src="/PokeApi/node_modules/toastr/toastr.js"></script>
     <title>PokeApi</title>
 </head>
-<body onload="pokemonsOnload()">
+
+<body onload = "itemsOnload()">
 
     <header>
         <nav>
-            <img src="img/logo.png" alt="Logo Pokemon" width="350">
+            <a href="index.html"><img src="img/logo.png" alt="Logo Pokemon" width="350"></a>
             
             <div id="sections">
                 <li id="list">
                     <a href="items.html"><ul>Items</ul></a>
                     <ul>Berries</ul>
-                    <ul>Locations and Regions</ul>
+                    <ul>Location and Regions</ul>
                 </li>
             </div>
     
         </nav>
     </header>
 
-
     <main>
         <div id="container">
             <form>
-        
                 <input type="text" name="name" id="input" placeholder="Name or ID">
-                <!-- <select name="select" id="typeSearch">
-                    <option value="name">Name</option>
-                    <option value="id" selected>Id</option>
-                    <option value="type">Type</option>
-                  </select> -->
-
                 <button type="button" onclick="buscar()">
-                    <i class="fa-solid fa-magnifying-glass fa-bounce fa-xl" style="color: #ffffff;"></i>
-                </button>
-
-                <input type="type" name="type" id="type" placeholder="Type">
-                <button type="button" onclick="typeSearch()">
                     <i class="fa-solid fa-magnifying-glass fa-bounce fa-xl" style="color: #ffffff;"></i>
                 </button>
 
@@ -58,18 +46,15 @@
                 </button>
             </form>
             <div id="searchContainer">
-                <div id="description">
-                    <div id="locationArea"></div>
-                </div>
-                
-                <div id="search"></div>
-    
-                <div id="stats"></div>
+                <div id="search">
+          
+                </div> 
+
             </div>
         </div>
 
         <div id="morePokemons">
-            <button id="buttonPokemon" onclick="morePokemons()">Load more Pokemons</button>
+            <button id="buttonPokemon" onclick="moreItems()">Load more Items</button>
         </div>
     </main>
 
@@ -87,6 +72,6 @@
     </footer>
 
 
-    <script src="scriptIndex.js"></script>
+    <script src="scriptItem.js"></script>
 </body>
 </html>

@@ -1,0 +1,269 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    display: flex;
+    flex-direction: column;
+}
+/* HEADER */
+header{
+    position: fixed;
+    width: 100vw;
+    z-index: 99;
+
+}
+nav{
+    height: 200px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    background-color: rgb(253, 62, 62);
+}
+#sections{
+    display: flex;
+    height: 80px;
+    align-items: center;
+}
+#list{
+    width: 700px;
+    display: flex;
+    justify-content: space-between;
+
+    color: white;
+    font-size: 12pt;
+    font-family: 'Press Start 2P', system-ui;
+}
+
+/* MAIN */
+main{
+    position: relative;
+    top: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content:flex-start;
+
+    background-image: url('/PokeApi/img/fondo.png');
+   
+}
+#container{
+    width: 70%;
+    z-index: 9;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    padding: 30px;
+    padding-bottom: 0;
+    background-color: rgba(0, 0, 0, 0.849);
+}
+
+#morePokemons{
+    height: 150px;
+    display: flex;
+    justify-content: center;
+
+    padding: 20px;
+    width: 70%;
+    z-index: 9;
+ 
+    background-color: rgba(0, 0, 0, 0.849);
+}
+
+#buttonPokemon{
+    height: 80px;
+    width: 180px;
+    padding: 10px;
+     
+    border: solid #3498db 3px;
+    border-radius: 20px;
+    color: white;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 14pt;
+}
+/* form */
+form{
+    height: 70px;
+    width: 600px;
+    border: solid #3498db 3px;
+    border-radius: 20px;
+    background-color: rgb(253, 62, 62);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+input{
+    margin-right: 10px;
+    margin-left: 10px;
+    border: none;
+    padding: 10px;
+
+    font-family: 'Roboto Mono', monospace;
+    text-align: center;
+}
+
+input::placeholder{
+    font-family: 'Roboto Mono', monospace;
+}
+button{
+    background-color: rgb(253, 62, 62);
+    border:none;
+}
+
+#deleteSearch{
+    margin-left: 10px;
+}
+
+/* Search*/
+
+#searchContainer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 25px;
+}
+
+
+.pokemonContainer{
+    width: 95%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+}
+
+
+.card{
+    padding: 10px;
+    margin-bottom: 30px;
+    height: 350px;
+    width: 220px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+
+    border-radius: 30px;
+    border: black;
+    background-color:white;
+    color: black;
+}
+
+.card:nth-child(even) {
+    background-color: rgb(253, 62, 62);
+    color: white;
+}
+
+.card:hover:nth-child(even){
+    border: solid #f1c40f 4px;
+}
+.card:hover:nth-child(odd){
+    border: solid #3498db 4px;
+}
+
+
+.title{
+    font-size: 10pt;
+    text-transform: capitalize;
+    font-family: 'Press Start 2P', system-ui;
+    text-align: center;
+}
+
+.img{
+    background-color: rgba(128, 128, 128, 0.144);
+    border-radius: 20px;
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.508);
+}
+
+img:hover{
+    box-shadow: none;
+}
+
+.id, .effect{
+    font-family: 'Roboto Mono', monospace;
+    font-size: 10pt;
+    text-align: center;
+}
+
+.category, .attribute, .cost, .flingPower{
+    font-family: 'Roboto Mono', monospace;
+    font-size: 8pt;
+    text-align: center;
+}
+.category::before, .attribute::before, .cost::before, .flingPower::before, .effect{
+    font-weight: bold;
+}
+
+.cost::before{
+    content: 'Cost: ';
+}
+
+.flingPower::before{
+    content: 'Fling Power: ';
+}
+
+.category::before{
+    content: 'Category: ';
+}
+
+.attribute::before{
+    content: 'Attributes: ';
+}
+
+.category:hover, .attribute:hover, .cost:hover{
+    transform: scale(1.2);
+    transition: 1s;
+}
+
+
+
+
+
+/* footer */
+
+footer{
+    height: 60px;
+    z-index: 99;
+    position: relative;
+    bottom: -200px;
+
+    display: flex;
+
+    background-color:black;
+    color: white
+}
+
+#copy{
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#redes{
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#redes-lista{
+    width: 50%;
+    display: flex;
+    justify-content: space-around;
+    list-style: none;
+}
+a{
+    text-decoration: none;
+    color:inherit
+}
