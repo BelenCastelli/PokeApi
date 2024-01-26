@@ -203,6 +203,9 @@ button{
 }
 
 .contentSearch{
+    display: flex;
+    justify-content: center;
+    width: 280px;
     font-family: 'Roboto Mono', monospace;
     font-size: 10pt;
     text-align: center;
@@ -286,7 +289,20 @@ img:hover{
     font-size: 8pt;
     text-align: center;
 }
+.type{
+    width: 120px;
+}
+.type, .typeSearch{
+    display: flex;
+    justify-content: space-around;
+    font-weight: bold;
+    text-transform: capitalize;
+    font-size: 10pt;
+}
 
+.typeSearch{
+    width: 150px;
+}
 .content:hover{
   
     transform: scale(1.2);

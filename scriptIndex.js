@@ -120,13 +120,16 @@ function card(datosPokemon, pokemonContainer){
     // Tipo Pokemon
     let type = document.createElement("p");
     let types = datosPokemon.types.map(type => type.type.name);
+    types.forEach(pokemonType => {
+        let paragraph = document.createElement("p");
+        colorType(paragraph, pokemonType)
+        paragraph.style.padding = '5px';
+        paragraph.style.borderRadius = '5px';
+        paragraph.textContent = pokemonType
+        type.appendChild(paragraph)
+    })
 
-    let boldType = document.createElement('b');
-    boldType.textContent = 'Type: '
-    let typeContent = document.createTextNode(`${types.join(', ')}`);
-    type.appendChild(boldType)
-    type.appendChild(typeContent);
-    type.classList.add("content")
+    type.classList.add("content",  "type")
 
     // Habilidades
     let ability = document.createElement("p");
@@ -192,16 +195,15 @@ function cardSearch(datosPokemon){
     // Tipo Pokemon
     let type = document.createElement("p");
     let types = datosPokemon.types.map(type => type.type.name);
-
-    let boldType = document.createElement('b');
-    let typeText = document.createTextNode('Type: ');
-    boldType.appendChild(typeText);
-
-    let typeContent = document.createTextNode(`${types.join(', ')}`);
-
-    type.appendChild(boldType)
-    type.appendChild(typeContent);
-    type.classList.add("contentSearch")
+    types.forEach(pokemonType => {
+        let paragraph = document.createElement("p");
+        colorType(paragraph, pokemonType)
+        paragraph.style.padding = '5px';
+        paragraph.style.borderRadius = '5px';
+        paragraph.textContent = pokemonType
+        type.appendChild(paragraph)
+    })
+    type.classList.add("contentSearch", "typeSearch")
 
     // Habilidades
     let ability = document.createElement("p");
@@ -305,4 +307,64 @@ function enviroment(data){
     locationArea.innerHTML = ''
     locationArea.appendChild(enviroment);
 
+}
+
+function colorType(paragraph, pokemonType){
+    switch (pokemonType) {
+        case 'poison':
+            paragraph.style.background = '#923FCC';
+            break;  
+        case 'normal':
+                paragraph.style.background = '#A8A77A';
+                break;      
+        case 'fire':
+            paragraph.style.background = '#EE8130';
+     
+            break;     
+        case 'water':
+            paragraph.style.background = '#6390F0';
+            break;  
+        case 'electric':
+                paragraph.style.background = '#F7D02C'
+                break;      
+        case 'grass':
+            paragraph.style.background = '#7AC74C';
+            break;  
+        case 'ice':
+            paragraph.style.background = '#96D9D6';
+            break;  
+        case 'fighting':
+                paragraph.style.background = '#C22E28'
+                break;      
+        case 'ground':
+            paragraph.style.background = '#E2BF65';
+            break; 
+        case 'flying':
+            paragraph.style.background = '#A98FF3';
+            break;     
+        case 'psychic':
+            paragraph.style.background = '#F95587';
+            break;  
+        case 'bug':
+                paragraph.style.background = '#A6B91A'
+                break;      
+        case 'rock':
+            paragraph.style.background = '#B6A136';
+            break;  
+        case 'ghost':
+            paragraph.style.background = '#735797';
+            break;  
+        case 'dragon':
+                paragraph.style.background = '#6F35FC'
+                break;      
+        case 'dark':
+            paragraph.style.background = '#705746';
+            break; 
+        case 'steel':
+                paragraph.style.background = '#B7B7CE'
+                break;      
+        case 'fairy':
+            paragraph.style.background = '#D685AD';
+            break;
+    }
 }
