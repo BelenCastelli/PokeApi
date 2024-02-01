@@ -8,18 +8,28 @@ let searchContainer = document.getElementById('searchContainer')
 let search = document.getElementById('search')
 let stats = document.getElementById('stats')
 let description = document.getElementById('description')
+let pokemonContainer = document.createElement("div");
+let pokemonContainer2 = document.createElement("div");
+pokemonContainer2.classList.add('pokemonContainer')
 
 let url = `https://pokeapi.co/api/v2/pokemon/?offset=${countOffset}&limit=${countLimit}`;
-
-function pokemonsOnload(){
-    pokemons(url)
-}
 
 function morePokemons(){
     countOffset += 10
     url = `https://pokeapi.co/api/v2/pokemon/?offset=${countOffset}&limit=${countLimit}`;
     pokemons(url)
 }
+
+function pokemonsOnload(){
+    pokemons(url)
+    let morePokemons = document.getElementById('morePokemons')
+    morePokemons.style.display = "block"
+    pokemonContainer2.style.display = 'none'
+    pokemonContainer.style.display = 'flex'
+    
+}
+
+
 
 
 function pokemons(url){
@@ -33,7 +43,7 @@ function pokemons(url){
     fetch(url,param)
     .then(data =>data.json())
     .then(data =>{
-        let pokemonContainer = document.createElement("div");
+
         pokemonContainer.classList.add('pokemonContainer')
             for(let i = 0; i < data.results.length; i++){
                 // Hago otra peticion por cada uno de los pokemons
@@ -90,9 +100,50 @@ stats.innerHTML = '';
 
 }
 
-function typeSearch(){
-
+function deleteSearch2() {
+    pokemonContainer2.innerHTML = '';
 }
+
+
+function typeSearch(){
+    let imput = document.getElementById('type').value;
+    let url = `https://pokeapi.co/api/v2/type/${imput}`;
+    let param = {
+        headers: {
+            'Content-Type': 'application/json; charset=UTF-8'
+        },
+        method: 'GET'
+    };
+ 
+  
+    deleteSearch2()
+    fetch(url, param)
+        .then(response => response.json())
+        .then(typeData => {
+            let pokemonUrls = typeData.pokemon.map(pokemon => pokemon.pokemon.url);
+
+            // Usar Promise.all para realizar todas las solicitudes a la vez
+            return Promise.all(pokemonUrls.map(pokemonUrl =>
+                fetch(pokemonUrl, param)
+                    .then(response =>  response.json())
+            ));
+        })
+        .then(pokemonDataArray => {
+            pokemonDataArray.forEach(dataPokemon =>{
+                pokemonContainer.style.display ='none'
+                pokemonContainer2.style.display = 'flex'
+                card(dataPokemon, pokemonContainer2)
+            })
+        })
+        .catch(error =>{
+            console.log(error);
+            toastr.error('Type does not exist', '¡ERROR!',
+                        {closeButton:true, positionClass: 'toast-top-center',
+                    })
+        })
+}
+    
+
 
 
 function card(datosPokemon, pokemonContainer){
@@ -169,6 +220,7 @@ function card(datosPokemon, pokemonContainer){
 
 
 function cardSearch(datosPokemon){
+    console.log(datosPokemon);
 
     let pokemonSearch = document.createElement("div");
     pokemonSearch.classList.add('pokemonContainer');

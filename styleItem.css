@@ -267,3 +267,17 @@ a{
     text-decoration: none;
     color:inherit
 }
+
+
+/* MOVER */
+
+#allPokemon:hover, #items:hover{
+    cursor: pointer;
+}
+#allPokemon:hover{
+    color: #3498db;
+}
+
+#items:hover{
+    color:#f1c40f;
+}

@@ -15,7 +15,7 @@
     <script src="/PokeApi/node_modules/toastr/toastr.js"></script>
     <title>PokeApi</title>
 </head>
-<body onload="pokemonsOnload()">
+<body>
 
     <header>
         <nav>
@@ -23,8 +23,8 @@
             
             <div id="sections">
                 <li id="list">
-                    <a href="items.html"><ul>Items</ul></a>
-                    <ul>Berries</ul>
+                    <ul id="allPokemon" onclick="pokemonsOnload()">All Pokemons</ul>
+                    <a  id ='items' href="items.html"><ul>Items</ul></a>
                     <ul>Locations and Regions</ul>
                 </li>
             </div>
@@ -47,15 +47,19 @@
                 <button type="button" onclick="buscar()">
                     <i class="fa-solid fa-magnifying-glass fa-bounce fa-xl" style="color: #ffffff;"></i>
                 </button>
-<!-- 
-                <input type="type" name="type" id="type" placeholder="Type">
-                <button type="button" onclick="typeSearch()">
-                    <i class="fa-solid fa-magnifying-glass fa-bounce fa-xl" style="color: #ffffff;"></i>
-                </button> -->
-
                 <button type="button" onclick="deleteSearch()"> 
                     <i id="deleteSearch" class="fa-solid fa-circle-xmark fa-xl" style="color: #ffffff;"></i>
                 </button>
+
+                <input type="type" name="type" id="type" placeholder="Type">
+                <button type="button" onclick="typeSearch()">
+                    <i class="fa-solid fa-magnifying-glass fa-bounce fa-xl" style="color: #ffffff;"></i>
+                </button>
+                <button type="button" onclick="deleteSearch2()"> 
+                    <i id="deleteSearch" class="fa-solid fa-circle-xmark fa-xl" style="color: #ffffff;"></i>
+                </button>
+
+
             </form>
             <div id="searchContainer">
                 <div id="description">
