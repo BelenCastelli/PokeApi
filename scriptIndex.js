@@ -11,6 +11,8 @@ let description = document.getElementById('description')
 let pokemonContainer = document.createElement("div");
 let pokemonContainer2 = document.createElement("div");
 pokemonContainer2.classList.add('pokemonContainer')
+let searchHeader = document.getElementById('searchHeader')
+let buttonMorePokemon = document.getElementById('buttonPokemon2')
 
 let url = `https://pokeapi.co/api/v2/pokemon/?offset=${countOffset}&limit=${countLimit}`;
 
@@ -26,11 +28,9 @@ function pokemonsOnload(){
     morePokemons.style.display = "block"
     pokemonContainer2.style.display = 'none'
     pokemonContainer.style.display = 'flex'
-    
+    searchHeader.style.display = 'none'
+    buttonMorePokemon.style.display = 'flex'
 }
-
-
-
 
 function pokemons(url){
     let param = {
@@ -74,7 +74,7 @@ function buscar() {
         },
         method: 'GET'
     };
-
+    searchHeader.style.display = 'none'
     fetch(url,param)
     .then(data => data.json())
     .then(datosPokemon => {
@@ -106,6 +106,7 @@ function deleteSearch2() {
 
 
 function typeSearch(){
+    searchHeader.style.display = 'none'
     let imput = document.getElementById('type').value;
     let url = `https://pokeapi.co/api/v2/type/${imput}`;
     let param = {
@@ -117,6 +118,7 @@ function typeSearch(){
  
   
     deleteSearch2()
+    buttonMorePokemon.style.display = 'none'
     fetch(url, param)
         .then(response => response.json())
         .then(typeData => {

@@ -23,9 +23,10 @@
             
             <div id="sections">
                 <li id="list">
-                    <ul id="allPokemon" onclick="pokemonsOnload()">All Pokemons</ul>
                     <a  id ='items' href="items.html"><ul>Items</ul></a>
                     <ul>Locations and Regions</ul>
+                    <ul>Berries</ul>
+                 
                 </li>
             </div>
     
@@ -35,8 +36,12 @@
 
     <main>
         <div id="container">
-            <form>
-        
+
+            <div id="searchHeader">
+               SEARCH YOUR FAVORITE POKEMON
+            </div>
+
+            <form> 
                 <input type="text" name="name" id="input" placeholder="Name or ID">
                 <!-- <select name="select" id="typeSearch">
                     <option value="name">Name</option>
@@ -58,22 +63,25 @@
                 <button type="button" onclick="deleteSearch2()"> 
                     <i id="deleteSearch" class="fa-solid fa-circle-xmark fa-xl" style="color: #ffffff;"></i>
                 </button>
-
-
             </form>
+
             <div id="searchContainer">
                 <div id="description">
                     <div id="locationArea"></div>
                 </div>
-                
                 <div id="search"></div>
-    
                 <div id="stats"></div>
+            </div>
+        
+            <div>
+                <button id="buttonPokemon" onclick="pokemonsOnload()">ALL POKEMON</button>
             </div>
         </div>
 
         <div id="morePokemons">
-            <button id="buttonPokemon" onclick="morePokemons()">Load more Pokemons</button>
+            <div id="buttonDiv">
+                <button id="buttonPokemon2" onclick="morePokemons()">Load more Pokemons</button>
+            </div>
         </div>
     </main>
 
